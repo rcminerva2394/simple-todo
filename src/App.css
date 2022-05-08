@@ -1,0 +1,20 @@
+.todo-form {
+  background-color: #ffff;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  border-radius: 5px;
+}
+
+h2 {
+  text-align: center;
+}
+
+@media (min-width: 500px) {
+  .todo-form {
+    width: 500px;
+  }
+}

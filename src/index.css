@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: rgb(84, 104, 250);
+  background: radial-gradient(
+    circle,
+    rgba(84, 104, 250, 1) 0%,
+    rgba(252, 70, 135, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+}

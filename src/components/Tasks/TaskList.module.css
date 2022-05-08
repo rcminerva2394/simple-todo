@@ -1,0 +1,49 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  width: 82%;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.list li {
+  background-color: #ededed;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.list button {
+  border: none;
+}
+
+.taskInfoBtn {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-left: 8px;
+}
+
+.cmpltIcon,
+.editIcon,
+.delIcon {
+  color: #b7a8a8;
+}
+
+.cmpltIcon:hover,
+.cmpltIcon:active {
+  color: #55a042;
+}
+
+.delIcon:hover,
+.delIcon:active {
+  color: #ff0000;
+}
+
+.editDelete {
+  display: flex;
+  margin-right: 8px;
+}

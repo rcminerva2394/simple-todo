@@ -1,0 +1,23 @@
+.task {
+  width: 90%;
+  text-align: center;
+}
+
+.task input {
+  width: 80%;
+  height: 32px;
+  margin-right: 1%;
+  border: 1px solid transparent;
+  border-color: #b7a8a8;
+  outline: none;
+  padding: 8px;
+}
+
+.task button {
+  position: relative;
+  height: 32px;
+  width: 10%;
+  color: #ffff;
+  background-color: #4739eb;
+  border: 1px solid transparent;
+}
