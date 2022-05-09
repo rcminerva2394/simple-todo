@@ -10,25 +10,21 @@ import {
 import taskStyles from "./TaskList.module.css";
 
 const TaskList = (props) => {
-  const doneHandler = (e) => {};
+  const doneHandler = (e) => {
+
+    e.preventDefault();
+  };
 
   const editHandler = (e) => {};
 
-  const deleteHandler = (e) => {
-    e.preventDefault();
-    let keyLi = e.currentTarget.closest("li").getAttribute("id");
-    console.log(keyLi);
-
-    let newTaskList = props.tasks.filter((task) => 
-      task.id !== keyLi 
-    ) 
-    props.onDelTask(newTaskList)
+  const deleteHandler = (id) => {
+    props.onDelTask(id)
   };
 
   return (
     <ul className={taskStyles.list}>
       {props.tasks.map((task) => (
-        <li key={task.id} id={task.id}>
+        <li key={task.id}>
           <div className={taskStyles.taskInfoBtn}>
             <button type="submit" onClick={doneHandler}>
               <FontAwesomeIcon
@@ -48,7 +44,7 @@ const TaskList = (props) => {
             </button>
             <button
               type="submit"
-              onClick={deleteHandler}
+              onClick={(e) => {e.preventDefault(); deleteHandler(task.id)}}
               className={taskStyles.delIcon}
             >
               <FontAwesomeIcon icon={faTrash} />

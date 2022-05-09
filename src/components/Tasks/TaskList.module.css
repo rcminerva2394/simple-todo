@@ -34,12 +34,13 @@
 }
 
 .cmpltIcon:hover,
-.cmpltIcon:active {
+.cmpltIcon:active,
+.compltIcon:focus {
   color: #55a042;
 }
 
 .delIcon:hover,
-.delIcon:active {
+.delIcon:active{
   color: #ff0000;
 }
 

@@ -16,8 +16,9 @@ function App() {
     });
   };
 
-  const delTaskHandler = (newTasksList) => {
-    setTasksList(newTasksList);
+  const delTaskHandler = (keyId) => {
+    let newTaskList = tasksList.filter((task) => task.id !== keyId);
+    setTasksList(newTaskList);
   };
 
   return (
