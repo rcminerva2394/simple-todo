@@ -8,12 +8,12 @@
 }
 
 .list li {
-  background-color: #ededed;
   margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   font-size: 14px;
   border-radius: 10px;
+
 }
 
 .list button {
@@ -27,24 +27,29 @@
   margin-left: 8px;
 }
 
-.cmpltIcon,
 .editIcon,
-.delIcon {
+.delIcon  {
   color: #b7a8a8;
+
 }
 
-.cmpltIcon:hover,
-.cmpltIcon:active,
-.compltIcon:focus {
-  color: #55a042;
+
+label {
+  display: flex;
+  align-self: center;
 }
+
+input[type="checkbox"]{
+  cursor: pointer;
+}
+
 
 .delIcon:hover,
-.delIcon:active{
+.delIcon:active {
   color: #ff0000;
 }
 
-.editDelete {
+.list li .editDelete {
   display: flex;
   margin-right: 8px;
 }

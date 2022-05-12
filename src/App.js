@@ -11,7 +11,7 @@ function App() {
     setTasksList((prevTasksList) => {
       return [
         ...prevTasksList,
-        { taskInfo: newTask, id: Math.random().toString() },
+        { chore: newTask, id: Math.random().toString() },
       ];
     });
   };
