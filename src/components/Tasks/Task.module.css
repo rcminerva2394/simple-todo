@@ -1,22 +1,12 @@
-.list {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  width: 82%;
-  padding: 0;
-  margin-top: 2rem;
-}
-
-.list li {
+li {
   margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   font-size: 14px;
   border-radius: 10px;
-
 }
 
-.list button {
+button {
   border: none;
 }
 
@@ -28,28 +18,25 @@
 }
 
 .editIcon,
-.delIcon  {
+.delIcon {
   color: #b7a8a8;
-
 }
-
 
 label {
   display: flex;
   align-self: center;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
   cursor: pointer;
 }
-
 
 .delIcon:hover,
 .delIcon:active {
   color: #ff0000;
 }
 
-.list li .editDelete {
+.editDelete {
   display: flex;
   margin-right: 8px;
 }

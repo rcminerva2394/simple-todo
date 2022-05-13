@@ -1,65 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-
-import taskStyles from "./TaskList.module.css";
+import "./TaskList.css";
+import Task from "./Task";
 
 const TaskList = (props) => {
-  const [checked, setChecked] = useState(false);
-
-  const checkHandler = () => {
-    setChecked((checked) => !checked);
-  };
-
-  const editHandler = (e) => {};
-
-  const deleteHandler = (id) => {
-    props.onDelTask(id);
-  };
-
   return (
-    <ul className={taskStyles.list}>
+    <ul>
       {props.tasks.map((task) => (
-        <li
+        <Task
           key={task.id}
-          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
-        >
-          <div className={taskStyles.taskInfoBtn}>
-            <label>
-              <input
-                type="checkbox"
-                checked={checked}
-                onChange={checkHandler}
-              ></input>
-            </label>
-
-            <p style={{textDecorationLine: !checked ? "none" : "line-through", textDecorationColor: checked ? "white" : "none"}}>
-             {task.chore}
-            </p>
-          </div>
-          <div className={taskStyles.editDelete}>
-            <button
-              type="submit"
-              onClick={editHandler}
-              className={taskStyles.editIcon}
-              style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
-            >
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </button>
-            <button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                deleteHandler(task.id);
-              }}
-              className={taskStyles.delIcon}
-              style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
-            >
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-          </div>
-        </li>
+          id={task.id}
+          chore={task.chore}
+          onDelete={props.onDelTask}
+        ></Task>
       ))}
     </ul>
   );
@@ -67,4 +20,6 @@ const TaskList = (props) => {
 
 export default TaskList;
 
-/** Try to explore useEffect with dependencies later on */
+/** Try to explore useEffect with dependencies later on
+ * incorporate local storage as well for saving the dated tasks
+ */
