@@ -6,23 +6,23 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import taskStyles from "./Task.module.css";
 
 const Task = (props) => {
-  const [checked, setChecked] = useState(false);
+  const { id, chore, completedStat, onDelete, completed } = props;
+
+  const [checked, setChecked] = useState(completedStat);
 
   const completeToggleHandler = () => {
     setChecked((checked) => !checked);
-    props.completed(props.id, checked);
   };
 
   const editHandler = (e) => {};
 
   const deleteHandler = (id) => {
-    props.onDelete(id);
+    onDelete(id);
   };
 
   useEffect(() => {
-    props.completed(props.id, checked)
+    completed(id, checked);
   }, [checked]);
-
 
   return (
     <li
@@ -44,7 +44,7 @@ const Task = (props) => {
             textDecorationColor: checked ? "white" : "none",
           }}
         >
-          {props.chore}
+          {chore}
         </p>
       </div>
       <div className={taskStyles.editDelete}>
@@ -60,7 +60,7 @@ const Task = (props) => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            deleteHandler(props.id);
+            deleteHandler(id);
           }}
           className={taskStyles.delIcon}
           style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
@@ -73,6 +73,3 @@ const Task = (props) => {
 };
 
 export default Task;
-
-
-/* Update the task or chore item, and add completed status on the object back to parent App.js*/

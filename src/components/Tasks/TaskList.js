@@ -11,8 +11,9 @@ const TaskList = (props) => {
           key={task.id}
           id={task.id}
           chore={task.chore}
+          completedStat={task.completed}
           onDelete={props.onDelTask}
-          completed = {props.onCompleted}
+          completed={props.onCompleted}
         ></Task>
       ))}
     </ul>
@@ -20,7 +21,3 @@ const TaskList = (props) => {
 };
 
 export default TaskList;
-
-/** Try to explore useEffect with dependencies later on
- * incorporate local storage as well for saving the dated tasks
- */
