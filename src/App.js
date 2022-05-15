@@ -11,23 +11,36 @@ function App() {
     setTasksList((prevTasksList) => {
       return [
         ...prevTasksList,
-        { chore: newTask, id: Math.random().toString() },
+        { chore: newTask, id: Math.random().toString(), completed: false },
       ];
     });
   };
 
-  const delTaskHandler = (keyId) => {
-    let newTaskList = tasksList.filter((task) => task.id !== keyId);
-    setTasksList(newTaskList);
+  const delTaskHandler = (id) => {
+    const updatedTaskList = tasksList.filter((task) => task.id !== id);
+    setTasksList(updatedTaskList);
   };
 
+  const completedHandler = (id, checked) => {
+    const updatedTaskList = tasksList.map((task) => {
+      if (task.id === id) {
+        if (task.completed !== checked) {
+          task.completed = checked;
+        }
+      }
+      return task
+    })
+    setTasksList(updatedTaskList);
+
+  }
   return (
     <div className="todo-form">
       <h2>My Simple Todo</h2>
       <AddTask onAddTask={addTaskHandler}></AddTask>
-      <Tasklist tasks={tasksList} onDelTask={delTaskHandler}></Tasklist>
+      <Tasklist tasks={tasksList} onDelTask={delTaskHandler} onCompleted = {completedHandler}></Tasklist>
     </div>
   );
 }
 
 export default App;
+

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -8,8 +8,9 @@ import taskStyles from "./Task.module.css";
 const Task = (props) => {
   const [checked, setChecked] = useState(false);
 
-  const checkHandler = () => {
+  const completeToggleHandler = () => {
     setChecked((checked) => !checked);
+    props.completed(props.id, checked);
   };
 
   const editHandler = (e) => {};
@@ -17,6 +18,11 @@ const Task = (props) => {
   const deleteHandler = (id) => {
     props.onDelete(id);
   };
+
+  useEffect(() => {
+    props.completed(props.id, checked)
+  }, [checked]);
+
 
   return (
     <li
@@ -28,7 +34,7 @@ const Task = (props) => {
           <input
             type="checkbox"
             checked={checked}
-            onChange={checkHandler}
+            onChange={completeToggleHandler}
           ></input>
         </label>
 
@@ -67,3 +73,6 @@ const Task = (props) => {
 };
 
 export default Task;
+
+
+/* Update the task or chore item, and add completed status on the object back to parent App.js*/

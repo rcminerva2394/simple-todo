@@ -8,6 +8,7 @@ const AddTask = (props) => {
   const addNewTaskHandler = (e) => {
     e.preventDefault();
     props.onAddTask(enteredTask);
+    setEnteredTask("");
   };
 
   const newTaskChangeHandler = (e) => {
@@ -23,6 +24,7 @@ const AddTask = (props) => {
           type="text"
           onChange={newTaskChangeHandler}
           placeholder="Write a new task..."
+          value={enteredTask}
         ></input>
         <button type="submit">+</button>
       </form>
