@@ -32,6 +32,17 @@ function App() {
     });
     setTasksList(updatedTaskList);
   };
+
+  const editHandler = (id, editedTaskText) => {
+    const updatedTaskList = tasksList.map((task) => {
+      if(task.id === id) {
+        task.chore = editedTaskText;
+      }
+      return task;
+    })
+    setTasksList(updatedTaskList);
+  }
+
   return (
     <div className="todo-form">
       <h2>My Simple Todo</h2>
@@ -40,6 +51,7 @@ function App() {
         tasks={tasksList}
         onDelTask={delTaskHandler}
         onCompleted={completedHandler}
+        onEdit= {editHandler}
       ></Tasklist>
     </div>
   );

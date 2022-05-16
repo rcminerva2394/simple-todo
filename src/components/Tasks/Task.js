@@ -1,21 +1,37 @@
 import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPenToSquare,
+  faFloppyDisk,
+} from "@fortawesome/free-solid-svg-icons";
 
 import taskStyles from "./Task.module.css";
 
 const Task = (props) => {
-  const { id, chore, completedStat, onDelete, completed } = props;
-
+  const { id, chore, completedStat, onDelete, completed, edit } = props;
   const [checked, setChecked] = useState(completedStat);
+  const [taskIsEditing, setTaskIsEditing] = useState(null);
+  const [editedTaskText, setEditedTaskText] = useState("");
 
   const completeToggleHandler = () => {
     setChecked((checked) => !checked);
   };
 
-  const editHandler = (e) => {};
+  const editHandler = () => {
+    setTaskIsEditing(id);
+  };
 
+  const taskTextEditHandler = (e) => {
+    setEditedTaskText(e.target.value);
+  };
+
+  const editSubmitHandler = () => {
+    edit(id, editedTaskText);
+    console.log(editedTaskText)
+
+  }
   const deleteHandler = (id) => {
     onDelete(id);
   };
@@ -37,15 +53,22 @@ const Task = (props) => {
             onChange={completeToggleHandler}
           ></input>
         </label>
-
-        <p
-          style={{
-            textDecorationLine: !checked ? "none" : "line-through",
-            textDecorationColor: checked ? "white" : "none",
-          }}
-        >
-          {chore}
-        </p>
+        {id === taskIsEditing ? (
+          <input
+            type="text"
+            onChange={taskTextEditHandler}
+            value={editedTaskText}
+          />
+        ) : (
+          <p
+            style={{
+              textDecorationLine: !checked ? "none" : "line-through",
+              textDecorationColor: checked ? "white" : "none",
+            }}
+          >
+            {chore}
+          </p>
+        )}
       </div>
       <div className={taskStyles.editDelete}>
         <button
@@ -58,13 +81,20 @@ const Task = (props) => {
         </button>
         <button
           type="submit"
-          onClick={(e) => {
+          onClick={editSubmitHandler}
+          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+        >
+          <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon>
+        </button>
+
+        <button
+          type="submit" onClick=
+          {(e) => {
             e.preventDefault();
             deleteHandler(id);
           }}
           className={taskStyles.delIcon}
-          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
-        >
+          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}>
           <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>

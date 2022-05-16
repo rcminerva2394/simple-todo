@@ -14,6 +14,7 @@ const TaskList = (props) => {
           completedStat={task.completed}
           onDelete={props.onDelTask}
           completed={props.onCompleted}
+          edit={props.onEdit}
         ></Task>
       ))}
     </ul>
