@@ -31,9 +31,25 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+.editInput {
+  width: 80%;
+  height: 30px;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
 .delIcon:hover,
 .delIcon:active {
   color: #ff0000;
+  cursor: pointer;
+}
+
+.editIcon:hover,
+.editIcon:active {
+  color: #4739eb;
+  cursor: pointer;
 }
 
 .editDelete {

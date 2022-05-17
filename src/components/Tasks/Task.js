@@ -29,9 +29,10 @@ const Task = (props) => {
 
   const editSubmitHandler = () => {
     edit(id, editedTaskText);
-    console.log(editedTaskText)
+    console.log(editedTaskText);
+    setTaskIsEditing(null);
+  };
 
-  }
   const deleteHandler = (id) => {
     onDelete(id);
   };
@@ -58,6 +59,7 @@ const Task = (props) => {
             type="text"
             onChange={taskTextEditHandler}
             value={editedTaskText}
+            className={taskStyles.editInput}
           />
         ) : (
           <p
@@ -71,30 +73,35 @@ const Task = (props) => {
         )}
       </div>
       <div className={taskStyles.editDelete}>
+        {" "}
+        {taskIsEditing ? (
+          <button
+            type="submit"
+            onClick={editSubmitHandler}
+            className={taskStyles.editIcon}
+            style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+          >
+            <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon>
+          </button>
+        ) : (
+          <button
+            type="submit"
+            onClick={editHandler}
+            className={taskStyles.editIcon}
+            style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+          >
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </button>
+        )}
         <button
           type="submit"
-          onClick={editHandler}
-          className={taskStyles.editIcon}
-          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
-        >
-          <FontAwesomeIcon icon={faPenToSquare} />
-        </button>
-        <button
-          type="submit"
-          onClick={editSubmitHandler}
-          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
-        >
-          <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon>
-        </button>
-
-        <button
-          type="submit" onClick=
-          {(e) => {
+          onClick={(e) => {
             e.preventDefault();
             deleteHandler(id);
           }}
           className={taskStyles.delIcon}
-          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}>
+          style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+        >
           <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
