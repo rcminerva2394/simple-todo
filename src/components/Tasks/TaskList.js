@@ -13,8 +13,8 @@ const TaskList = (props) => {
           chore={task.chore}
           completedStat={task.completed}
           onDelete={props.onDelTask}
-          completed={props.onCompleted}
-          edit={props.onEdit}
+          onCompleted={props.onCompleted}
+          onEdit={props.onEdit}
         ></Task>
       ))}
     </ul>

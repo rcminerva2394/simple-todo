@@ -32,7 +32,6 @@ input[type="checkbox"] {
 }
 
 .editInput {
-  width: 80%;
   height: 30px;
   outline: none;
   border: 1px solid transparent;
@@ -48,7 +47,7 @@ input[type="checkbox"] {
 
 .editIcon:hover,
 .editIcon:active {
-  color: #4739eb;
+  color: #247f5c;
   cursor: pointer;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./App.css";
 import AddTask from "./components/Tasks/AddTask";
@@ -6,6 +6,20 @@ import Tasklist from "./components/Tasks/TaskList";
 
 function App() {
   const [tasksList, setTasksList] = useState([]);
+
+  useEffect(() => {
+    const getTasksList = localStorage.getItem("tasksList");
+    const loadedTasksList = JSON.parse(getTasksList);
+
+    if (loadedTasksList) {
+      setTasksList(loadedTasksList);
+    }
+  }, []);
+
+  useEffect(() => {
+    const saveTasksList = JSON.stringify(tasksList);
+    localStorage.setItem("tasksList", saveTasksList);
+  }, [tasksList]);
 
   const addTaskHandler = (newTask) => {
     setTasksList((prevTasksList) => {
@@ -35,13 +49,13 @@ function App() {
 
   const editHandler = (id, editedTaskText) => {
     const updatedTaskList = tasksList.map((task) => {
-      if(task.id === id) {
+      if (task.id === id) {
         task.chore = editedTaskText;
       }
       return task;
-    })
+    });
     setTasksList(updatedTaskList);
-  }
+  };
 
   return (
     <div className="todo-form">
@@ -51,7 +65,7 @@ function App() {
         tasks={tasksList}
         onDelTask={delTaskHandler}
         onCompleted={completedHandler}
-        onEdit= {editHandler}
+        onEdit={editHandler}
       ></Tasklist>
     </div>
   );
