@@ -36,8 +36,16 @@ const Task = (props) => {
     setTaskIsEditing(null);
   };
 
-  const delModalHandler = (id) => {
+  const delModalHandler = () => {
     setIsDeleting(true);
+  };
+
+  const confirmHandler = (answer) => {
+    if (answer === false) {
+      setIsDeleting(false);
+    } else if (answer === true) {
+      onDelete(id);
+    }
   };
 
   useEffect(() => {
@@ -46,7 +54,7 @@ const Task = (props) => {
 
   return (
     <div>
-    {isDeleting && <DeleteModal/>}
+      {isDeleting && <DeleteModal onConfirm={confirmHandler} />}
       <li
         style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
         className={taskStyles}

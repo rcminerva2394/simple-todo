@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 import addTaskStyles from "./AddTask.module.css";
 
 const AddTask = (props) => {
@@ -26,7 +29,9 @@ const AddTask = (props) => {
           placeholder="Write a new task..."
           value={enteredTask}
         ></input>
-        <button type="submit">+</button>
+        <button type="submit">
+          <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+        </button>
       </form>
     </div>
   );
