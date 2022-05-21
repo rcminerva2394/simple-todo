@@ -1,9 +1,41 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 import deleteModalStyles from "./DeleteModal.module.css";
+
+const ModalBackdrop = (props) => {
+  return (
+    <div className={deleteModalStyles.backdrop} onClick={props.onConfirm}></div>
+  );
+};
+
+const ModalOverlay = (props) => {
+  return (
+    <div className={deleteModalStyles.modal}>
+      <header className={deleteModalStyles.header}>
+        <FontAwesomeIcon
+          icon={faCircleXmark}
+          className={deleteModalStyles.icon}
+        ></FontAwesomeIcon>
+        <h2 className={deleteModalStyles.title}>Are you sure?</h2>
+      </header>
+      <p className={deleteModalStyles.content}>
+        Do you really want to delete this?
+      </p>
+      <div className={deleteModalStyles.buttons}>
+        <button type="submit" onClick={props.onCancel}>
+          Cancel
+        </button>
+        <button type="submit" onClick={props.onDelete}>
+          Delete
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const DeleteModal = (props) => {
   const cancelHandler = () => {
@@ -14,29 +46,16 @@ const DeleteModal = (props) => {
     props.onConfirm(true);
   };
   return (
-    <div>
-      <div className={deleteModalStyles.backdrop} onClick={cancelHandler}></div>
-      <div className={deleteModalStyles.modal}>
-        <header className={deleteModalStyles.header}>
-          <FontAwesomeIcon
-            icon={faCircleXmark}
-            className={deleteModalStyles.icon}
-          ></FontAwesomeIcon>
-          <h2 className={deleteModalStyles.title}>Are you sure?</h2>
-        </header>
-        <p className={deleteModalStyles.content}>
-          Do you really want to delete this?
-        </p>
-        <div className={deleteModalStyles.buttons}>
-          <button type="submit" onClick={cancelHandler} >
-            Cancel
-          </button>
-          <button type="submit" onClick={deleteHandler}>
-            Delete
-          </button>
-        </div>
-      </div>
-    </div>
+    <React.Fragment>
+      {ReactDOM.createPortal(
+        <ModalBackdrop onConfirm={cancelHandler} />,
+        document.getElementById("modal-backdrop")
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay onCancel={cancelHandler} onDelete={deleteHandler} />,
+        document.getElementById("modal-overlay")
+      )}
+    </React.Fragment>
   );
 };
 

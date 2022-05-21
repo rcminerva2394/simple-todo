@@ -14,7 +14,7 @@ import taskStyles from "./Task.module.css";
 const Task = (props) => {
   const { id, chore, completedStat, onDelete, onCompleted, onEdit } = props;
   const [checked, setChecked] = useState(completedStat);
-  const [taskIsEditing, setTaskIsEditing] = useState(null);
+  const [taskIsEditing, setTaskIsEditing] = useState(false);
   const [editedTaskText, setEditedTaskText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -23,7 +23,7 @@ const Task = (props) => {
   };
 
   const editHandler = () => {
-    setTaskIsEditing(id);
+    setTaskIsEditing(true);
   };
 
   const taskTextEditHandler = (e) => {
@@ -33,7 +33,7 @@ const Task = (props) => {
   const editSubmitHandler = () => {
     onEdit(id, editedTaskText);
     console.log(editedTaskText);
-    setTaskIsEditing(null);
+    setTaskIsEditing(false);
   };
 
   const delModalHandler = () => {
@@ -53,10 +53,11 @@ const Task = (props) => {
   }, [checked]);
 
   return (
-    <div>
+    <React.Fragment>
       {isDeleting && <DeleteModal onConfirm={confirmHandler} />}
       <li
-        style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+        style={{ backgroundColor: !checked ?  "#A1EED2" : "#ededed", 
+        color: checked ? "#AEA9A9" : "#000000" }}
         className={taskStyles}
       >
         <div className={taskStyles.taskInfoBtn}>
@@ -67,7 +68,7 @@ const Task = (props) => {
               onChange={completeToggleHandler}
             ></input>
           </label>
-          {id === taskIsEditing ? (
+          {taskIsEditing ? (
             <input
               type="text"
               onChange={taskTextEditHandler}
@@ -78,7 +79,7 @@ const Task = (props) => {
             <p
               style={{
                 textDecorationLine: !checked ? "none" : "line-through",
-                textDecorationColor: checked ? "white" : "none",
+                textDecorationColor: checked ? "#AEA9A9" : "none",
               }}
             >
               {chore}
@@ -92,7 +93,7 @@ const Task = (props) => {
               type="submit"
               onClick={editSubmitHandler}
               className={taskStyles.editIcon}
-              style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+              style={{backgroundColor: !checked ?  "#A1EED2" : "#ededed"  }}
             >
               <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon>
             </button>
@@ -101,7 +102,7 @@ const Task = (props) => {
               type="submit"
               onClick={editHandler}
               className={taskStyles.editIcon}
-              style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+              style={{ backgroundColor: !checked ?  "#A1EED2" : "#ededed"  }}
             >
               <FontAwesomeIcon icon={faPenToSquare} />
             </button>
@@ -110,13 +111,13 @@ const Task = (props) => {
             type="button"
             onClick={delModalHandler}
             className={taskStyles.delIcon}
-            style={{ backgroundColor: !checked ? "#ededed" : "#90E0C3" }}
+            style={{ backgroundColor: !checked ?  "#A1EED2" : "#ededed" }}
           >
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
       </li>
-    </div>
+    </React.Fragment>
   );
 };
 
