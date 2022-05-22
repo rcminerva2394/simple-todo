@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "../UI/Button";
 
 import addTaskStyles from "./AddTask.module.css";
 
@@ -10,8 +11,14 @@ const AddTask = (props) => {
 
   const addNewTaskHandler = (e) => {
     e.preventDefault();
-    props.onAddTask(enteredTask);
-    setEnteredTask("");
+
+    if (enteredTask === "") {
+      alert("Please provide a correct input")
+    } else {
+      props.onAddTask(enteredTask);
+      setEnteredTask("");
+    }
+   
   };
 
   const newTaskChangeHandler = (e) => {
@@ -29,9 +36,9 @@ const AddTask = (props) => {
           placeholder="Write a new task..."
           value={enteredTask}
         ></input>
-        <button type="submit">
+        <Button type="submit" className={addTaskStyles.button}>
           <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-        </button>
+        </Button>
       </form>
     </div>
   );

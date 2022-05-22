@@ -14,8 +14,7 @@ The purpose is to practice the basics of React such as props, and hooks like use
    - Number of the total tasks listed
    - Active Button
    - Completed Button
-2) Modal for confirming delete
-
 
 #### Needed Refactoring
 1) Use of reusable UI: wrappers, buttons, and input
+2) Error modal for unacceptable input values

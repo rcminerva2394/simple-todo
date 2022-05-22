@@ -52,6 +52,22 @@
     margin-top: 1rem;
 
 }
+
+.cancelButton {
+  padding: 0.5rem 1rem;
+  background-color: #BBBBBB;
+  color: #ffff;
+  border-radius: 2px;
+}
+
+.deleteButton {
+  padding: 0.5rem 1rem;
+  background-color: #EF6969;
+  color: #ffff;
+  border-radius: 2px;
+}
+
+
 @media (min-width: 500px) {
   .modal {
     width: 500px;

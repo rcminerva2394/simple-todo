@@ -3,9 +3,12 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import AddTask from "./components/Tasks/AddTask";
 import Tasklist from "./components/Tasks/TaskList";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [tasksList, setTasksList] = useState([]);
+  const [summaryTasksList, setSummaryTasksList] = useState(null);
+  const [isSummary, setIsSummary] = useState(null);
 
   useEffect(() => {
     const getTasksList = localStorage.getItem("tasksList");
@@ -57,6 +60,19 @@ function App() {
     setTasksList(updatedTaskList);
   };
 
+  const summaryHandler = (category) => { 
+    setIsSummary(true)
+    if (category === "All") {
+      setSummaryTasksList(tasksList);
+    } else if (category === "Active") {
+      const activeList = tasksList.filter((task) => task.completed === false);
+      setSummaryTasksList(activeList);
+    } else if (category === "Completed") {
+      const completedList = tasksList.filter((task) => task.completed === true);
+      setSummaryTasksList(completedList);
+    }
+  };
+
   return (
     <div className="todo-form">
       <h2>My Simple Todo</h2>
@@ -67,6 +83,7 @@ function App() {
         onCompleted={completedHandler}
         onEdit={editHandler}
       ></Tasklist>
+      <Footer tasksNum={tasksList.length} onSummary={summaryHandler}></Footer>
     </div>
   );
 }

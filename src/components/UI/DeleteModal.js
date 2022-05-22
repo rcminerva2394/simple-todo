@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import Button from "./Button.js";
 
 import deleteModalStyles from "./DeleteModal.module.css";
 
@@ -26,12 +27,21 @@ const ModalOverlay = (props) => {
         Do you really want to delete this?
       </p>
       <div className={deleteModalStyles.buttons}>
-        <button type="submit" onClick={props.onCancel}>
+        <Button
+          type="submit"
+          onClick={props.onCancel}
+          className={deleteModalStyles.cancelButton}
+        >
+          {" "}
           Cancel
-        </button>
-        <button type="submit" onClick={props.onDelete}>
+        </Button>
+        <Button
+          type="submit"
+          onClick={props.onDelete}
+          className={deleteModalStyles.deleteButton}
+        >
           Delete
-        </button>
+        </Button>
       </div>
     </div>
   );

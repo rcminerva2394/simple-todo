@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import DeleteModal from "../UI/DeleteModal";
+import Button from "../UI/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,9 +32,15 @@ const Task = (props) => {
   };
 
   const editSubmitHandler = () => {
-    onEdit(id, editedTaskText);
-    console.log(editedTaskText);
-    setTaskIsEditing(false);
+
+    if(editedTaskText === "") {
+      alert("Please provide a correct input")
+    } else {
+      onEdit(id, editedTaskText);
+      console.log(editedTaskText);
+      setTaskIsEditing(false);
+    }
+   
   };
 
   const delModalHandler = () => {
@@ -56,8 +63,10 @@ const Task = (props) => {
     <React.Fragment>
       {isDeleting && <DeleteModal onConfirm={confirmHandler} />}
       <li
-        style={{ backgroundColor: !checked ?  "#A1EED2" : "#ededed", 
-        color: checked ? "#AEA9A9" : "#000000" }}
+        style={{
+          backgroundColor: !checked ? "#A1EED2" : "#ededed",
+          color: checked ? "#AEA9A9" : "#000000",
+        }}
         className={taskStyles}
       >
         <div className={taskStyles.taskInfoBtn}>
@@ -89,32 +98,32 @@ const Task = (props) => {
         <div className={taskStyles.editDelete}>
           {" "}
           {taskIsEditing ? (
-            <button
+            <Button
               type="submit"
               onClick={editSubmitHandler}
               className={taskStyles.editIcon}
-              style={{backgroundColor: !checked ?  "#A1EED2" : "#ededed"  }}
+              style={{ backgroundColor: !checked ? "#A1EED2" : "#ededed" }}
             >
               <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon>
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               type="submit"
               onClick={editHandler}
               className={taskStyles.editIcon}
-              style={{ backgroundColor: !checked ?  "#A1EED2" : "#ededed"  }}
+              style={{ backgroundColor: !checked ? "#A1EED2" : "#ededed" }}
             >
               <FontAwesomeIcon icon={faPenToSquare} />
-            </button>
+            </Button>
           )}
-          <button
+          <Button
             type="button"
             onClick={delModalHandler}
             className={taskStyles.delIcon}
-            style={{ backgroundColor: !checked ?  "#A1EED2" : "#ededed" }}
+            style={{ backgroundColor: !checked ? "#A1EED2" : "#ededed" }}
           >
             <FontAwesomeIcon icon={faTrash} />
-          </button>
+          </Button>
         </div>
       </li>
     </React.Fragment>
