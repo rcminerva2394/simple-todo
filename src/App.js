@@ -5,10 +5,9 @@ import AddTask from "./components/Tasks/AddTask";
 import Tasklist from "./components/Tasks/TaskList";
 import Footer from "./components/Footer/Footer";
 
-function App() {
+const App = () => {
   const [tasksList, setTasksList] = useState([]);
-  const [summaryTasksList, setSummaryTasksList] = useState(null);
-  const [isSummary, setIsSummary] = useState(null);
+  const [filterTasksList, setFilterTasksList] = useState(null);
 
   useEffect(() => {
     const getTasksList = localStorage.getItem("tasksList");
@@ -36,6 +35,9 @@ function App() {
   const delTaskHandler = (id) => {
     const updatedTaskList = tasksList.filter((task) => task.id !== id);
     setTasksList(updatedTaskList);
+
+    const summaryUpdatedList = filterTasksList.filter((task) => task.id !== id);
+    setFilterTasksList(summaryUpdatedList);
   };
 
   const completedHandler = (id, checked) => {
@@ -60,25 +62,23 @@ function App() {
     setTasksList(updatedTaskList);
   };
 
-  const summaryHandler = (category) => { 
-    setIsSummary(true)
+  const summaryHandler = (category) => {
     if (category === "All") {
-      setSummaryTasksList(tasksList);
+      setFilterTasksList(tasksList);
     } else if (category === "Active") {
       const activeList = tasksList.filter((task) => task.completed === false);
-      setSummaryTasksList(activeList);
+      setFilterTasksList(activeList);
     } else if (category === "Completed") {
       const completedList = tasksList.filter((task) => task.completed === true);
-      setSummaryTasksList(completedList);
+      setFilterTasksList(completedList);
     }
   };
-
   return (
     <div className="todo-form">
       <h2>My Simple Todo</h2>
       <AddTask onAddTask={addTaskHandler}></AddTask>
       <Tasklist
-        tasks={tasksList}
+        tasks={filterTasksList ? filterTasksList : tasksList}
         onDelTask={delTaskHandler}
         onCompleted={completedHandler}
         onEdit={editHandler}
@@ -86,6 +86,6 @@ function App() {
       <Footer tasksNum={tasksList.length} onSummary={summaryHandler}></Footer>
     </div>
   );
-}
+};
 
 export default App;

@@ -3,13 +3,32 @@ import React from "react";
 import Button from "../UI/Button";
 
 const Footer = (props) => {
+  const { tasksNum, onSummary } = props;
   return (
     <div>
-      <p>{`${props.tasksNum} items left`}</p>
+      <p>{`${tasksNum} items left`}</p>
       <div>
-        <Button onClick={props.onSummary("All")}>All</Button>
-        <Button onClick={props.onSummary("Active")}>Active</Button>
-        <Button onClick={props.onSummary("Completed")}>Completed</Button>
+        <Button
+          onClick={() => {
+            onSummary("All");
+          }}
+        >
+          All
+        </Button>
+        <Button
+          onClick={() => {
+            onSummary("Active");
+          }}
+        >
+          Active
+        </Button>
+        <Button
+          onClick={() => {
+            onSummary("Completed");
+          }}
+        >
+          Completed
+        </Button>
       </div>
     </div>
   );
