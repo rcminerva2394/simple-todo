@@ -10,6 +10,7 @@ const App = () => {
   const [filterTasksList, setFilterTasksList] = useState(tasksList);
   const [isFiltering, setIsFiltering] = useState(false);
 
+  // local storage set-up
   useEffect(() => {
     const getTasksList = localStorage.getItem("tasksList");
     const loadedTasksList = JSON.parse(getTasksList);
@@ -22,9 +23,7 @@ const App = () => {
   useEffect(() => {
     const saveTasksList = JSON.stringify(tasksList);
     localStorage.setItem("tasksList", saveTasksList);
-
-    setIsFiltering(false);
-    console.log("no filtering");
+    
   }, [tasksList]);
 
   const addTaskHandler = (newTask) => {
@@ -34,6 +33,8 @@ const App = () => {
         { chore: newTask, id: Math.random().toString(), completed: false },
       ];
     });
+
+    setIsFiltering(false)
   };
 
   const delTaskHandler = (id) => {
@@ -67,6 +68,7 @@ const App = () => {
   };
 
   const summaryHandler = (category) => {
+    setIsFiltering(true);
     switch (category) {
       case "All":
         setFilterTasksList(tasksList);
@@ -85,21 +87,6 @@ const App = () => {
         break;
     }
   };
-
-  // if (category === "All") {
-  //   setFilterTasksList(tasksList);
-  // } else if (category === "Active") {
-  //   const activeList = tasksList.filter((task) => task.completed === false);
-  //   setFilterTasksList(activeList);
-  // } else if (category === "Completed") {
-  //   const completedList = tasksList.filter((task) => task.completed === true);
-  //   setFilterTasksList(completedList);
-  // }
-
-  useEffect(() => {
-    setIsFiltering(true);
-    console.log("filter")
-  }, [filterTasksList]);
 
   return (
     <div className="todo-form">

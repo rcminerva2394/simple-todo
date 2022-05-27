@@ -1,14 +1,18 @@
 import React from "react";
 
 import Button from "../UI/Button";
+import footerStyles from "./Footer.module.css";
 
 const Footer = (props) => {
   const { tasksNum, onSummary } = props;
   return (
-    <div>
-      <p>{`${tasksNum} items left`}</p>
+    <footer className={footerStyles.footer}>
+      <p className={footerStyles.number}>
+        {tasksNum <= 1 ? `${tasksNum} item left` : `${tasksNum} items left`}
+      </p>
       <div>
         <Button
+          className={footerStyles.button}
           onClick={() => {
             onSummary("All");
           }}
@@ -16,6 +20,7 @@ const Footer = (props) => {
           All
         </Button>
         <Button
+          className={footerStyles.button}
           onClick={() => {
             onSummary("Active");
           }}
@@ -23,6 +28,7 @@ const Footer = (props) => {
           Active
         </Button>
         <Button
+          className={footerStyles.button}
           onClick={() => {
             onSummary("Completed");
           }}
@@ -30,7 +36,7 @@ const Footer = (props) => {
           Completed
         </Button>
       </div>
-    </div>
+    </footer>
   );
 };
 

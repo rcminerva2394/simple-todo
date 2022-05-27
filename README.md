@@ -1,20 +1,17 @@
 # My Simple Todo
-This is still a work in progress.
-The purpose is to practice the basics of React such as props, and hooks like useState and useEffect.
+I created this to practice the basics of React such as props, and hooks like useState and useEffect.
 
 ## Functionalities
-1) User write a new task
+1) User can write a new task
+![add a new task] (./screenshots/add-task.gif)
 2) Each task has three features:
    - Completion status
    - Edit 
    - Delete
-
-#### Additional features to be added in the future
-1) Summary of the data:
-   - Number of the total tasks listed
-   - Active Button
-   - Completed Button
-
-#### Needed Refactoring
-1) Use of reusable UI: wrappers, buttons, and input
-2) Error modal for unacceptable input values
+![status, edit, and delete] (./screenshots/edit-del-check.gif)
+3) Filters:
+   - All Button (Showing all tasks inputted)
+   - Active Button (Showing active tasks)
+   - Completed Button (Showing completed tasks)
+![filters] (./screenshots/filters.gif)
+4) Use of local storage
