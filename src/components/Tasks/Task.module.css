@@ -31,6 +31,11 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+
+.choreText {
+  word-wrap: break-word;
+}
+
 .editInput {
   height: 30px;
   outline: none;
@@ -38,6 +43,7 @@ input[type="checkbox"] {
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
+  word-wrap: break-all;
 }
 .delIcon:hover,
 .delIcon:active {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import DeleteModal from "../UI/DeleteModal";
+import Modal from "../UI/Modal.js";
 import Button from "../UI/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,8 +16,10 @@ const Task = (props) => {
   const { id, chore, completedStat, onDelete, onCompleted, onEdit } = props;
   const [checked, setChecked] = useState(completedStat);
   const [taskIsEditing, setTaskIsEditing] = useState(false);
-  const [editedTaskText, setEditedTaskText] = useState("");
+  const [editedTaskText, setEditedTaskText] = useState(chore);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [modalContent, setModalContent] = useState();
+  const [isInputWrong, setIsInputWrong] = useState(false);
 
   const completeToggleHandler = () => {
     setChecked((checked) => !checked);
@@ -29,39 +31,54 @@ const Task = (props) => {
 
   const taskTextEditHandler = (e) => {
     setEditedTaskText(e.target.value);
+
   };
 
-  const editSubmitHandler = () => {
-
-    if(editedTaskText === "") {
-      alert("Please provide a correct input")
+  const editSubmitHandler = (e) => {
+    e.preventDefault();
+    if (editedTaskText === "") {
+      // alert("Please provide a correct input");
+      setIsInputWrong(true);
+      setModalContent({title: "Input is wrong", message: "Please write a correct input", type: "error"})
     } else {
       onEdit(id, editedTaskText);
-      console.log(editedTaskText);
       setTaskIsEditing(false);
+      setIsInputWrong(false);
     }
-   
   };
 
   const delModalHandler = () => {
     setIsDeleting(true);
+    setModalContent({title: "Are you sure?", message: "Do you really want to delete this?", type: "delete"})
   };
 
-  const confirmHandler = (answer) => {
-    if (answer === false) {
-      setIsDeleting(false);
-    } else if (answer === true) {
-      onDelete(id);
+  const confirmHandler = (answer, type) => {
+    if (type === "delete") {
+      if (answer === false) {
+        setIsDeleting(false);
+        setModalContent("")
+      } else if (answer === true) {
+        onDelete(id);
+      }
+
+    } else if (type === "error") {
+      if(answer === false) {
+        setIsInputWrong(false);
+        setModalContent("")
+      }
     }
+    
   };
 
   useEffect(() => {
     onCompleted(id, checked);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked]);
 
   return (
     <React.Fragment>
-      {isDeleting && <DeleteModal onConfirm={confirmHandler} />}
+      {isInputWrong && <Modal onConfirm={confirmHandler} onModalContent={modalContent} />}
+      {isDeleting && <Modal onConfirm={confirmHandler} onModalContent={modalContent} />}
       <li
         style={{
           backgroundColor: !checked ? "#A1EED2" : "#ededed",
@@ -78,17 +95,21 @@ const Task = (props) => {
             ></input>
           </label>
           {taskIsEditing ? (
-            <input
-              type="text"
-              onChange={taskTextEditHandler}
-              value={editedTaskText}
-              className={taskStyles.editInput}
-            />
+            <form type="submit" onSubmit={editSubmitHandler}>
+              <input
+                type="text"
+                onChange={taskTextEditHandler}
+                value={editedTaskText}
+                className={taskStyles.editInput} 
+               
+              />
+            </form>
           ) : (
             <p
               style={{
                 textDecorationLine: !checked ? "none" : "line-through",
                 textDecorationColor: checked ? "#AEA9A9" : "none",
+                wordWrap: "break-all"
               }}
             >
               {chore}
