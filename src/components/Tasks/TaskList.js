@@ -1,9 +1,8 @@
-import React from "react";
+import React from 'react';
+import './TaskList.css';
+import Task from './Task';
 
-import "./TaskList.css";
-import Task from "./Task";
-
-const TaskList = ({tasks, onDelTask, onCompleted, onEdit}) => {
+const TaskList = ({ tasks }) => {
   return (
     <ul>
       {tasks.map((task) => (
@@ -12,9 +11,6 @@ const TaskList = ({tasks, onDelTask, onCompleted, onEdit}) => {
           id={task.id}
           chore={task.chore}
           completedStat={task.completed}
-          onDelete={onDelTask}
-          onCompleted={onCompleted}
-          onEdit={onEdit}
         ></Task>
       ))}
     </ul>

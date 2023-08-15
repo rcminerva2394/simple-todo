@@ -1,20 +1,44 @@
-import React from "react";
+import React from 'react';
+import Button from '../UI/Button';
+import footerStyles from './Footer.module.css';
+import useTodo from '../../hooks/use-todo-context';
 
-import Button from "../UI/Button";
-import footerStyles from "./Footer.module.css";
+const Footer = () => {
+  const { tasksList, setFilterTasksList, setIsFiltering } = useTodo();
 
-const Footer = (props) => {
-  const { tasksNum, onSummary } = props;
+  const summaryHandler = (category) => {
+    setIsFiltering(true);
+    switch (category) {
+      case 'All':
+        setFilterTasksList(tasksList);
+        break;
+      case 'Active':
+        const activeList = tasksList.filter((task) => task.completed === false);
+        setFilterTasksList(activeList);
+        break;
+      case 'Completed':
+        const completedList = tasksList.filter(
+          (task) => task.completed === true
+        );
+        setFilterTasksList(completedList);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <footer className={footerStyles.footer}>
       <p className={footerStyles.number}>
-        {tasksNum <= 1 ? `${tasksNum} item left` : `${tasksNum} items left`}
+        {tasksList.length <= 1
+          ? `${tasksList.length} item left`
+          : `${tasksList.length} items left`}
       </p>
       <div>
         <Button
           className={footerStyles.button}
           onClick={() => {
-            onSummary("All");
+            summaryHandler('All');
           }}
         >
           All
@@ -22,7 +46,7 @@ const Footer = (props) => {
         <Button
           className={footerStyles.button}
           onClick={() => {
-            onSummary("Active");
+            summaryHandler('Active');
           }}
         >
           Active
@@ -30,7 +54,7 @@ const Footer = (props) => {
         <Button
           className={footerStyles.button}
           onClick={() => {
-            onSummary("Completed");
+            summaryHandler('Completed');
           }}
         >
           Completed

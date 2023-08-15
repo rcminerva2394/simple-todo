@@ -1,19 +1,28 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
-import Button from "./Button.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import Button from './Button.js';
 
-import modalStyles from "./Modal.module.css";
+import modalStyles from './Modal.module.css';
 
-const ModalBackdrop = (props) => {
-  return (
-    <div className={modalStyles.backdrop} onClick={props.onConfirm}></div>
-  );
+const content = {
+  error: {
+    title: 'Input is wrong',
+    message: 'Please write a correct input',
+  },
+  delete: {
+    title: 'Are you sure?',
+    message: 'Do you really want to delete this?',
+  },
 };
 
-const ModalOverlay = ({ onCancel, onDelete, onModalContent }) => {
+const ModalBackdrop = (props) => {
+  return <div className={modalStyles.backdrop} onClick={props.onConfirm}></div>;
+};
+
+const ModalOverlay = ({ onCancel, onDelete, type }) => {
   return (
     <div className={modalStyles.modal}>
       <header className={modalStyles.header}>
@@ -21,22 +30,21 @@ const ModalOverlay = ({ onCancel, onDelete, onModalContent }) => {
           icon={faCircleXmark}
           className={modalStyles.icon}
         ></FontAwesomeIcon>
-        <h2 className={modalStyles.title}>{onModalContent.title}</h2>
+        <h2 className={modalStyles.title}>{content[type].title}</h2>
       </header>
-      <p className={modalStyles.content}>{onModalContent.message}</p>
+      <p className={modalStyles.content}>{content[type].message}</p>
       <div className={modalStyles.buttons}>
-        {onModalContent.type === "delete" ? (
+        {type === 'delete' ? (
           <div className={modalStyles.buttons}>
             <Button
-              type="submit"
+              type='submit'
               onClick={onCancel}
               className={modalStyles.cancelButton}
             >
-              {" "}
               Cancel
             </Button>
             <Button
-              type="submit"
+              type='submit'
               onClick={onDelete}
               className={modalStyles.deleteButton}
             >
@@ -44,44 +52,43 @@ const ModalOverlay = ({ onCancel, onDelete, onModalContent }) => {
             </Button>
           </div>
         ) : (
-            <Button
-              type="submit"
-              onClick={onCancel}
-              className={modalStyles.cancelButton}
-            >
-              {" "}
-              Okay
-            </Button>
-          )
-        }
+          <Button
+            type='submit'
+            onClick={onCancel}
+            className={modalStyles.cancelButton}
+          >
+            Okay
+          </Button>
+        )}
       </div>
     </div>
   );
 };
 
-const Modal = ({ onConfirm, onModalContent }) => {
+const Modal = ({ onConfirm, type }) => {
   const cancelHandler = () => {
-    onConfirm(false, onModalContent.type);
+    onConfirm(false, type);
   };
 
   const deleteHandler = () => {
-    onConfirm(true, onModalContent.type);
+    onConfirm(true, type);
   };
+
   return (
-    <React.Fragment>
+    <>
       {ReactDOM.createPortal(
         <ModalBackdrop onConfirm={cancelHandler} />,
-        document.getElementById("modal-backdrop")
+        document.getElementById('modal-backdrop')
       )}
       {ReactDOM.createPortal(
         <ModalOverlay
           onCancel={cancelHandler}
           onDelete={deleteHandler}
-          onModalContent={onModalContent}
+          type={type}
         />,
-        document.getElementById("modal-overlay")
+        document.getElementById('modal-overlay')
       )}
-    </React.Fragment>
+    </>
   );
 };
 

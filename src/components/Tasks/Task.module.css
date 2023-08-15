@@ -27,10 +27,9 @@ label {
   align-self: center;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   cursor: pointer;
 }
-
 
 .choreText {
   word-wrap: break-word;
@@ -45,6 +44,7 @@ input[type="checkbox"] {
   padding: 10px;
   word-wrap: break-all;
 }
+
 .delIcon:hover,
 .delIcon:active {
   color: #ff0000;
